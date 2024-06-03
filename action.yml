@@ -36,19 +36,41 @@ inputs:
     required: false
     default: ''
 
-  mongodb-container-name:
-    description: 'MongoDB container name (default: "mongodb")'
+  mongodb-os:
+    description: 'MongoDB runner os, if none it will read from runner.os (default: ubuntu-latest)'
     required: false
-    default: 'mongodb'
+    default: ''
+    options:
+      - ubuntu-latest
+      - ubuntu-22.04
+      - ubuntu-20.04
+      - macos
+      - windows
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.mongodb-version }}
-    - ${{ inputs.mongodb-replica-set }}
-    - ${{ inputs.mongodb-port }}
-    - ${{ inputs.mongodb-db }}
-    - ${{ inputs.mongodb-username }}
-    - ${{ inputs.mongodb-password }}
-    - ${{ inputs.mongodb-container-name }}
+  using: 'composite'
+  steps:
+    - name: Install MongoDB
+      shell: bash
+      run: |
+        MONGODB_OS="${{ inputs.mongodb-os }}"
+        if [ -z "$MONGODB_OS" ]; then
+          if [[ "${{ runner.os }}" == Linux ]]; then
+            # TODO: Parse version of Ubuntu?
+            MONGODB_OS=ubuntu-22.04
+          elif [[ "${{ runner.os }}" == Windows ]]; then
+            MONGODB_OS=windows
+          elif [[ "${{ runner.os }}" == macOS ]]; then
+            MONGODB_OS=macos
+          else
+            "Unknown runner: \"${{ runner.os }}\""
+          fi  
+        fi
+        ${GITHUB_ACTION_PATH}/start-mongodb.sh "${{ inputs.mongodb-version }}" \
+        "${{ inputs.mongodb-replica-set }}" \
+        "${{ inputs.mongodb-port }}" \
+        "${{ inputs.mongodb-db }}" \
+        "${{ inputs.mongodb-username }}" \
+        "${{ inputs.mongodb-password }}" \
+        "${MONGODB_OS}" \
+        "${{ runner.temp }}"

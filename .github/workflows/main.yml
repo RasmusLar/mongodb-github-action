@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mongodb-version: ['4.0', '4.2', '4.4', '5.0', '6.0']
+        mongodb-version: ['4.0.28', '4.2.25', '4.4.29', '5.0.26', '6.0.15', 'latest']
 
     steps:
       - name: Checkout

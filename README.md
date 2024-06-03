@@ -46,7 +46,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        mongodb-version: ['6.0', '7.0', '8.0']
+        mongodb-version: ['6.0.15', '7.0.11', 'latest','8.0.0-rc6']
 
     steps:
     - name: Git checkout
@@ -86,7 +86,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        mongodb-version: ['6.0', '7.0', '8.0']
+        mongodb-version: ['6.0.15', '7.0.11', '8.0']
 
     steps:
     - name: Git checkout
@@ -130,7 +130,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        mongodb-version: ['6.0', '7.0', '8.0']
+        mongodb-version: ['6.0.15', '7.0.11', '8.0']
 
     steps:
     - name: Git checkout
@@ -174,7 +174,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        mongodb-version: ['6.0', '7.0', '8.0']
+        mongodb-version: ['6.0.15', '7.0.11', '8.0']
 
     steps:
     - name: Git checkout
@@ -218,7 +218,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x, 22.x]
-        mongodb-version: ['6.0', '7.0', '8.0']
+        mongodb-version: ['6.0.15', '7.0.11', '8.0']
 
     steps:
     - name: Git checkout

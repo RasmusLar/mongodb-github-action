@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18, 20]
-        mongodb-version: ['4.4', '5.0', '6.0']
+        mongodb-version: ['4.4.29', '5.0.26', '6.0.15', 'latest']
 
     steps:
       - name: Checkout
@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         mongodb-port: [12345]
-        mongodb-version: ['4.4', '5.0', '6.0']
+        mongodb-version: ['4.4.29', '5.0.26', '6.0.15']
         node-version: [18, 20]
 
     name: MongoDB v${{ matrix.mongodb-version }}, Port ${{ matrix.mongodb-port }} — Node.js v${{ matrix.node-version }}
